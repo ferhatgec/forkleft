@@ -8,6 +8,7 @@
 #ifndef FORKLEFT_PARSER_HPP
 #define FORKLEFT_PARSER_HPP
 
+#include <algorithm>
 #include <tuple>
 
 #include "forkleft_codegen.hpp"
@@ -24,19 +25,24 @@ class Forkleft_Parser {
     bool is_newline     = false;
     bool is_inline      = false;
     bool is_kedi        = false;
+    bool is_html        = false;
 
     bool is_setter      = false;
     bool is_data        = false;
 
-    std::string data;
-    std::string keyword_data;
-    std::string generated;
+    bool is_end_of_html_data = false;
 
-    std::string kedi_data;
-    std::string kedi_path;
+    std::string data        ;
+    std::string keyword_data;
+    std::string generated   ;
+
+    std::string kedi_data   ;
+    std::string kedi_path   ;
+
+    std::string html_data   ;
 
     ForkleftKeywords current_token;
-    Forkleft_Codegen cg;
+    Forkleft_Codegen cg           ;
 public:
     Forkleft_Parser() = default;
     ~Forkleft_Parser()= default;
@@ -49,9 +55,60 @@ public:
         return this->generated;
     }
 
-    void Parse() noexcept {
+    void left_trim(std::string& data) noexcept {
+        data.erase(
+                data.begin(),
+                std::find_if(data.begin(),
+                             data.end(),
+                             [](unsigned char ch) { return !std::isspace(ch);}
+                             )
+        );
+    }
+
+    void Parse(const std::string& line) noexcept {
         for(auto& data : this->tokens) {
             if(this->is_found) {
+                if(this->is_html) {
+                    // code ~html~ := -> '
+                    //
+                    //
+                    //
+                    // ' <-
+                    if(data == ":=" || data == "->") {
+                        continue;
+                    }
+
+                    if(data == "'") {
+                        if(!this->is_end_of_html_data) {
+                            this->is_end_of_html_data = true;
+                        }
+
+                        continue;
+                    }
+
+                    if(data == "<-") {
+                        this->is_end_of_html_data = this->is_html = false;
+
+                        this->left_trim(this->html_data);
+
+                        cg.Init(ForkleftKeywords::HTML,
+                                this->generated,
+                                this->html_data,
+                                "",
+                                this->is_newline,
+                                this->is_inline);
+
+                        this->html_data.erase();
+
+                        continue;
+                    }
+
+
+                    this->html_data.append(line);
+
+                    break;
+                }
+
                 if(this->is_kedi) {
                     // keyword @= ->
                     //  [data
@@ -151,13 +208,19 @@ public:
                 }
 
                 if(data == keywords[static_cast<u8>(ForkleftKeywords::Newline)]) {
-                    this->is_newline = true;
+                    this->is_newline= true;
 
                     continue;
                 }
 
                 if(data == keywords[static_cast<u8>(ForkleftKeywords::Inline)]) {
                     this->is_inline = true;
+
+                    continue;
+                }
+
+                if(data == keywords[static_cast<u8>(ForkleftKeywords::HTML)]) {
+                    this->is_html   = true;
 
                     continue;
                 }

@@ -1,5 +1,13 @@
 ~= Forkleft example
 
+~= ~html~ initializer to
+~= use directly html code in forkleft.
+~= title specifier coming soon into forkleft's builtins.
+code ~html~ := -> '
+    <title>Forkleft better</title>
+' <-
+
+
 h1 := 'hello, h1'
 h2 := 'hello, h2'
 h3 := 'hello, h3'
@@ -47,17 +55,8 @@ image @= ->
 ~=       <-
 ~=   <-
 ~=
-~=   image ['resources/list.png'] := 'Hello, world!'
-~=   link ['https://github.com'] := 'hello, world!'
-~=
-~=   blockquote := 'Hi!'
-~=
-~=   code ~inline~ := 'test'
-~=
 ~=   task ~ok~ := 'hello, world!' ->
 ~=       italic := 'huhuuu'
 ~=   <-
-~=
-~=   code ~html~ := '<p>Hi</p>'
 ~=   code ~markdown~ := '# Hello, world!'
 ~=

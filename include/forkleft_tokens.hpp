@@ -32,6 +32,8 @@ enum class ForkleftKeywords : const u8 {
 
         Newline   ,
         Inline    ,
+        HTML      ,
+
         Undefined
 };
 
@@ -52,7 +54,8 @@ std::vector<std::string> keywords = {
         "image",
 
         "~newline~",
-        "~inline~"
+        "~inline~",
+        "~html~"
 };
 
 std::vector<std::string> html_keywords {

@@ -94,6 +94,12 @@ public:
 
                 break;
             }
+
+            case ForkleftKeywords::HTML: {
+                generated.append(data);
+
+                break;
+            }
         }
     }
 };

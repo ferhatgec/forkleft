@@ -68,7 +68,7 @@ public:
 
             parser.Init(this->tokens);
 
-            parser.Parse();
+            parser.Parse(temporary_line);
 
             this->tokens.clear();
         }
