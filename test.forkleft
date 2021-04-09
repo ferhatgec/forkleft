@@ -17,6 +17,13 @@ code ~inline~ := 'std::cout << "hello, code\n";'
 
 strikethrough := 'markdown is best'
 
+link @= ->
+    [data
+        =path 'https://github.com/ferhatgec/forkleft'
+        =text 'Forkleft source code [GitHub]'
+    ]
+<-
+
 ~= Syntax will be like this (preferred, work-in-progress)
 ~=
 ~= list ~unordered~ := 'Hi!' ->

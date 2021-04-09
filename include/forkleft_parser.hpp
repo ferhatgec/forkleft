@@ -8,9 +8,12 @@
 #ifndef FORKLEFT_PARSER_HPP
 #define FORKLEFT_PARSER_HPP
 
-#include "forkleft_codegen.hpp"
+#include <tuple>
 
+#include "forkleft_codegen.hpp"
 #include "forkleft_tokens.hpp"
+
+#include "libs/kedi/include/kedi_main.hpp"
 
 class Forkleft_Parser {
     std::vector<std::string> tokens;
@@ -20,6 +23,7 @@ class Forkleft_Parser {
     // Initializer
     bool is_newline     = false;
     bool is_inline      = false;
+    bool is_kedi        = false;
 
     bool is_setter      = false;
     bool is_data        = false;
@@ -28,8 +32,13 @@ class Forkleft_Parser {
     std::string keyword_data;
     std::string generated;
 
+    std::string kedi_data;
+    std::string kedi_path;
+
     ForkleftKeywords current_token;
     Forkleft_Codegen cg;
+
+    Kedi             tree;
 public:
     Forkleft_Parser() = default;
     ~Forkleft_Parser()= default;
@@ -45,6 +54,49 @@ public:
     void Parse() noexcept {
         for(auto& data : this->tokens) {
             if(this->is_found) {
+                if(this->is_kedi) {
+                    // keyword @= ->
+                    //  [data
+                    //      =link '....'
+                    //      =name '....'
+                    //  ]
+                    // <-
+                    if(data == "->") {
+                        break;
+                    }
+
+                    if(data == "<-") {
+                        this->is_kedi = false;
+
+                        this->tree.ReadStr(this->kedi_data);
+
+                        this->data = std::get<1>(this->tree.Tree->Extract("data", "text"));
+                        this->kedi_path = std::get<1>(this->tree.Tree->Extract("data", "path"));
+
+                        cg.Init(this->current_token,
+                                this->generated,
+                                this->data,
+                                this->kedi_path,
+                                this->is_newline,
+                                this->is_inline);
+
+                        this->is_found = this->is_data = false;
+
+                        this->data.erase();
+                        this->kedi_path.erase();
+
+                        break;
+                    }
+
+                    kedi_data.append(data + " ");
+
+                    if(data.back() == '\'' || data.front() == '[') {
+                        kedi_data.push_back('\n');
+                    }
+
+                    continue;
+                }
+
                 if(this->is_setter) {
                     if(data.empty()) { // keyword := (newline)
                         this->is_found = this->is_setter = false;
@@ -62,6 +114,7 @@ public:
                                 cg.Init(this->current_token,
                                         this->generated,
                                         this->keyword_data,
+                                        "",
                                         this->is_newline,
                                         this->is_inline);
 
@@ -110,6 +163,12 @@ public:
 
                 if(data == ":=") {
                     this->is_setter = true;
+
+                    continue;
+                }
+
+                if(data == "@=") {
+                    this->is_kedi = true;
 
                     continue;
                 }

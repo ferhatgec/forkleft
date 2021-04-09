@@ -1,0 +1,17 @@
+@globalenv
+    $USER
+@
+
+[PROJECT
+    =name 'Fegeya Kedi'
+    =author 'Ferhat Gecdogan'
+    =username 'ferhatgec'
+    =description 'Experimental, fast data interface'
+    =language 'C++'
+
+    [INFO
+        =tree 'Kedi uses categoried single-node data interface tree implementation'
+
+        =user $USER
+    ]
+]

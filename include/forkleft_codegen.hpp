@@ -9,6 +9,7 @@
 #ifndef FORKLEFT_CODEGEN_HPP
 #define FORKLEFT_CODEGEN_HPP
 
+#include <regex>
 #include "forkleft_tokens.hpp"
 
 class Forkleft_Codegen {
@@ -20,9 +21,21 @@ public:
         return "<" + html + ">" + data + "</" + html + ">";
     }
 
+    std::string unwrap(const std::string& data) noexcept {
+        std::smatch match;
+
+        std::regex_search(data.begin(),
+                          data.end()  ,
+                          match    ,
+                          std::regex("\'(.*)\'"));
+
+        return match[1];
+    }
+
     void Init(ForkleftKeywords keyword,
               std::string& generated,
               std::string data,
+              std::string path,
               bool is_newline = false,
               bool is_inline  = false) noexcept {
         switch(keyword) {
@@ -51,6 +64,20 @@ public:
                 if(is_inline) {
                     generated.append(this->InitType(html_keywords[static_cast<u8>(keyword)], data) + "\n");
                 }
+
+                break;
+            }
+
+            case ForkleftKeywords::Link: {
+                generated.append("<"
+                    + html_keywords[static_cast<u8>(ForkleftKeywords::Link)]
+                    + " href=\""
+                    + this->unwrap(path)
+                    + "\">"
+                    + this->unwrap(data)
+                    + "</"
+                    + html_keywords[static_cast<u8>(ForkleftKeywords::Link)]
+                    + ">\n");
 
                 break;
             }
