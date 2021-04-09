@@ -34,7 +34,8 @@ public:
             case ForkleftKeywords::H6        :
             case ForkleftKeywords::Italic    :
             case ForkleftKeywords::Bold      :
-            case ForkleftKeywords::Blockquote: {
+            case ForkleftKeywords::Blockquote:
+            case ForkleftKeywords::Strikethrough: {
                 if(is_newline) {
                     generated.append(this->InitType("p", this->InitType(html_keywords[static_cast<u8>(keyword)], data)) + "\n");
                     break;
