@@ -1,0 +1,46 @@
+~= Forkleft example
+
+h1 := 'hello, h1'
+h2 := 'hello, h2'
+h3 := 'hello, h3'
+h4 := 'hello, h4'
+h5 := 'hello, h5'
+h6 := 'hello, h6'
+
+~= ~...~ is initializer for previous keyword.
+
+bold ~newline~ := 'hello, bold'
+italic ~newline~ := 'hello, italic'
+blockquote ~newline~ := 'hello, blockquote'
+
+
+~= Syntax will be like this (preferred, work-in-progress)
+~=
+~= list ~unordered~ := 'Hi!' ->
+~=     child := 'hello, world'
+~=     child := 'hello, world' ->
+~=         child := 'hello, world!'
+~=     <-
+~= <-
+~=
+~=   list ~ordered~ := 'Hi!' ->
+~=     child := 'Hello, world!'
+~=       child := 'hello, world?!' ->
+~=           child := 'hello, world!'
+~=       <-
+~=   <-
+~=
+~=   image ['resources/list.png'] := 'Hello, world!'
+~=   link ['https://github.com'] := 'hello, world!'
+~=
+~=   blockquote := 'Hi!'
+~=
+~=   code ~inline~ := 'test'
+~=
+~=   task ~ok~ := 'hello, world!' ->
+~=       italic := 'huhuuu'
+~=   <-
+~=
+~=   code ~html~ := '<p>Hi</p>'
+~=   code ~markdown~ := '# Hello, world!'
+~=
