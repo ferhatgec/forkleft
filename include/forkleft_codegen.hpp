@@ -23,7 +23,8 @@ public:
     void Init(ForkleftKeywords keyword,
               std::string& generated,
               std::string data,
-              bool is_newline = false) noexcept {
+              bool is_newline = false,
+              bool is_inline  = false) noexcept {
         switch(keyword) {
             case ForkleftKeywords::H1        :
             case ForkleftKeywords::H2        :
@@ -40,6 +41,15 @@ public:
                 }
 
                 generated.append(this->InitType(html_keywords[static_cast<u8>(keyword)], data) + "\n");
+
+                break;
+            }
+
+
+            case ForkleftKeywords::Code      : {
+                if(is_inline) {
+                    generated.append(this->InitType(html_keywords[static_cast<u8>(keyword)], data) + "\n");
+                }
 
                 break;
             }

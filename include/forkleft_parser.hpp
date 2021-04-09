@@ -19,6 +19,7 @@ class Forkleft_Parser {
 
     // Initializer
     bool is_newline     = false;
+    bool is_inline      = false;
 
     bool is_setter      = false;
     bool is_data        = false;
@@ -61,9 +62,9 @@ public:
                                 cg.Init(this->current_token,
                                         this->generated,
                                         this->keyword_data,
-                                        this->is_newline);
+                                        this->is_newline,
+                                        this->is_inline);
 
-                                std::cout << this->data << " : " << this->keyword_data << '\n';
                                 this->keyword_data.clear();
                                 this->data.clear();
 
@@ -76,7 +77,7 @@ public:
                     if(data.front() == '\'') {
                         this->is_data = true;
 
-                        char check;
+                        char check = ' ';
 
                         for(char& ch : data.erase(0, 1)) {
                             if(check == '\\' && ch == '\'') {
@@ -97,6 +98,12 @@ public:
 
                 if(data == keywords[static_cast<u8>(ForkleftKeywords::Newline)]) {
                     this->is_newline = true;
+
+                    continue;
+                }
+
+                if(data == keywords[static_cast<u8>(ForkleftKeywords::Inline)]) {
+                    this->is_inline = true;
 
                     continue;
                 }

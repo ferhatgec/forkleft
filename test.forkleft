@@ -13,6 +13,7 @@ bold ~newline~ := 'hello, bold'
 italic ~newline~ := 'hello, italic'
 blockquote ~newline~ := 'hello, blockquote'
 
+code ~inline~ := 'std::cout << "hello, code\n";'
 
 ~= Syntax will be like this (preferred, work-in-progress)
 ~=

@@ -17,7 +17,7 @@
 #include "defs/forkleft_defs.hpp"
 
 class Forkleft_Tokenize {
-    std::vector<std::string> tokens;
+    std::vector<std::string> tokens = {};
 
     Forkleft_Parser parser;
 public:
@@ -37,6 +37,8 @@ public:
             std::istringstream temporary_line_stream(temporary_line);
 
             for(std::string temporary; temporary_line_stream >> temporary;) {
+                if(temporary.empty()) break;
+
                 if(temporary.length() >= 2 && !is_data) {
                     // Supported comment blocks:
                     //  ~= Hi
