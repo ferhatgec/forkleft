@@ -2,11 +2,13 @@
 
 ~= ~html~ initializer to
 ~= use directly html code in forkleft.
-~= title specifier coming soon into forkleft's builtins.
-code ~html~ := -> '
-    <title>Forkleft better</title>
-' <-
+~=
+~= code ~html~ := -> '
+~=    <title>Forkleft better</title>
+~= ' <-
 
+~= Forkleft equivalent of <title>...</title>
+title := 'Forkleft better'
 
 h1 := 'hello, h1'
 h2 := 'hello, h2'

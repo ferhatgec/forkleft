@@ -39,22 +39,23 @@ public:
               bool is_newline = false,
               bool is_inline  = false) noexcept {
         switch(keyword) {
-            case ForkleftKeywords::H1        :
-            case ForkleftKeywords::H2        :
-            case ForkleftKeywords::H3        :
-            case ForkleftKeywords::H4        :
-            case ForkleftKeywords::H5        :
-            case ForkleftKeywords::H6        :
-            case ForkleftKeywords::Italic    :
-            case ForkleftKeywords::Bold      :
-            case ForkleftKeywords::Blockquote:
-            case ForkleftKeywords::Strikethrough: {
+            case ForkleftKeywords::H1           :
+            case ForkleftKeywords::H2           :
+            case ForkleftKeywords::H3           :
+            case ForkleftKeywords::H4           :
+            case ForkleftKeywords::H5           :
+            case ForkleftKeywords::H6           :
+            case ForkleftKeywords::Italic       :
+            case ForkleftKeywords::Bold         :
+            case ForkleftKeywords::Blockquote   :
+            case ForkleftKeywords::Strikethrough:
+            case ForkleftKeywords::Title        : {
                 if(is_newline) {
-                    generated.append(this->InitType("p", this->InitType(html_keywords[static_cast<u8>(keyword)], data)) + "\n");
+                    generated.append(this->InitType("p", this->InitType(html_keywords[static_cast<u8>(keyword)], data)));
                     break;
                 }
 
-                generated.append(this->InitType(html_keywords[static_cast<u8>(keyword)], data) + "\n");
+                generated.append(this->InitType(html_keywords[static_cast<u8>(keyword)], data));
 
                 break;
             }
@@ -77,7 +78,7 @@ public:
                     + this->unwrap(data)
                     + "</"
                     + html_keywords[static_cast<u8>(ForkleftKeywords::Link)]
-                    + ">\n");
+                    + ">");
 
                 break;
             }
@@ -101,6 +102,8 @@ public:
                 break;
             }
         }
+
+        generated.push_back('\n');
     }
 };
 

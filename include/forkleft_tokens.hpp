@@ -29,6 +29,7 @@ enum class ForkleftKeywords : const u8 {
         Strikethrough,
         Link      ,
         Image     ,
+        Title     ,
 
         Newline   ,
         Inline    ,
@@ -45,16 +46,17 @@ std::vector<std::string> keywords = {
         "h5",
         "h6",
 
-        "italic",
-        "bold",
-        "blockquote",
-        "code",
+        "italic"       ,
+        "bold"         ,
+        "blockquote"   ,
+        "code"         ,
         "strikethrough",
-        "link",
-        "image",
+        "link"         ,
+        "image"        ,
+        "title"        ,
 
-        "~newline~",
-        "~inline~",
+        "~newline~"    ,
+        "~inline~"     ,
         "~html~"
 };
 
@@ -66,14 +68,15 @@ std::vector<std::string> html_keywords {
         "h5",
         "h6",
 
-        "em",
-        "strong",
+        "em"        ,
+        "strong"    ,
 
         "blockquote",
-        "code",
-        "s",
-        "a",
-        "img"
+        "code"      ,
+        "s"         ,
+        "a"         ,
+        "img"       ,
+        "title"
 };
 
 #endif // FORKLEFT_TOKENS_HPP
