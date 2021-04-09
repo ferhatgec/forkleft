@@ -81,6 +81,19 @@ public:
 
                 break;
             }
+
+            case ForkleftKeywords::Image: {
+                generated.append("<"
+                    + html_keywords[static_cast<u8>(ForkleftKeywords::Image)]
+                    + " src=\""
+                    + this->unwrap(path)
+                    + "\" "
+                    + "alt=\""
+                    + this->unwrap(data)
+                    + "\">");
+
+                break;
+            }
         }
     }
 };

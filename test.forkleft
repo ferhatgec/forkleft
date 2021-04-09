@@ -24,6 +24,13 @@ link @= ->
     ]
 <-
 
+image @= ->
+    [data
+        =path 'https://octodex.github.com/images/manufacturetocat.png'
+        =text 'Octocat lol'
+    ]
+<-
+
 ~= Syntax will be like this (preferred, work-in-progress)
 ~=
 ~= list ~unordered~ := 'Hi!' ->

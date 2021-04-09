@@ -28,6 +28,7 @@ enum class ForkleftKeywords : const u8 {
         Code      ,
         Strikethrough,
         Link      ,
+        Image     ,
 
         Newline   ,
         Inline    ,
@@ -48,6 +49,7 @@ std::vector<std::string> keywords = {
         "code",
         "strikethrough",
         "link",
+        "image",
 
         "~newline~",
         "~inline~"
@@ -67,7 +69,8 @@ std::vector<std::string> html_keywords {
         "blockquote",
         "code",
         "s",
-        "a"
+        "a",
+        "img"
 };
 
 #endif // FORKLEFT_TOKENS_HPP

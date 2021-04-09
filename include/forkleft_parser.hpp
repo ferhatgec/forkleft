@@ -37,8 +37,6 @@ class Forkleft_Parser {
 
     ForkleftKeywords current_token;
     Forkleft_Codegen cg;
-
-    Kedi             tree;
 public:
     Forkleft_Parser() = default;
     ~Forkleft_Parser()= default;
@@ -68,10 +66,12 @@ public:
                     if(data == "<-") {
                         this->is_kedi = false;
 
-                        this->tree.ReadStr(this->kedi_data);
+                        Kedi tree;
 
-                        this->data = std::get<1>(this->tree.Tree->Extract("data", "text"));
-                        this->kedi_path = std::get<1>(this->tree.Tree->Extract("data", "path"));
+                        tree.ReadStr(this->kedi_data);
+
+                        this->data = std::get<1>(tree.Tree->Extract("data", "text"));
+                        this->kedi_path = std::get<1>(tree.Tree->Extract("data", "path"));
 
                         cg.Init(this->current_token,
                                 this->generated,
@@ -82,8 +82,9 @@ public:
 
                         this->is_found = this->is_data = false;
 
-                        this->data.erase();
+                        this->data     .erase();
                         this->kedi_path.erase();
+                        this->kedi_data.erase();
 
                         break;
                     }
