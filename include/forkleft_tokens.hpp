@@ -25,6 +25,7 @@ enum class ForkleftKeywords : const u8 {
         Italic    ,
         Bold      ,
         Blockquote,
+        Sign      ,
         Code      ,
         Strikethrough,
         Link      ,
@@ -49,6 +50,7 @@ std::vector<std::string> keywords = {
         "italic"       ,
         "bold"         ,
         "blockquote"   ,
+        "sign"         ,
         "code"         ,
         "strikethrough",
         "link"         ,
@@ -72,11 +74,30 @@ std::vector<std::string> html_keywords {
         "strong"    ,
 
         "blockquote",
+        "label"     ,
         "code"      ,
         "s"         ,
         "a"         ,
         "img"       ,
         "title"
+};
+
+const std::vector<std::string> signs = {
+        "@copyright@" , // (C)
+        "@registered@", // (R)
+        "@trade-mark@", // (TM)
+        "@section@"   , // (P)
+
+        "@plus-minus@"  // +-
+};
+
+const std::vector<std::string> sign_implemented {
+        "©", // (C)
+        "®", // (R)
+        "™", // (TM)
+        "§", // (P)
+
+        "±"  // +-
 };
 
 #endif // FORKLEFT_TOKENS_HPP

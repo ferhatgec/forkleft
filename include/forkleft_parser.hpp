@@ -34,7 +34,7 @@ class Forkleft_Parser {
 
     std::string data        ;
     std::string keyword_data;
-    std::string generated   ;
+    std::string generated   = "<meta charset=\"UTF-8\">\n";
 
     std::string kedi_data   ;
     std::string kedi_path   ;
@@ -204,6 +204,25 @@ public:
                         }
 
                         continue;
+                    }
+
+                    if(data.front() == '@') {
+                        u32 i = 0;
+
+                        for(auto& signs : signs) {
+                            if(signs == data) {
+                                cg.Init(this->current_token,
+                                        this->generated,
+                                        sign_implemented[i],
+                                        "",
+                                        this->is_newline,
+                                        this->is_inline);
+
+                                break;
+                            }
+
+                            ++i;
+                        }
                     }
                 }
 

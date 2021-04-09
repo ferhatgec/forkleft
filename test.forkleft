@@ -19,6 +19,13 @@ h6 := 'hello, h6'
 
 ~= ~...~ is initializer for previous keyword.
 
+sign ~newline~ := @copyright@
+sign ~newline~ := @registered@
+sign ~newline~ := @trade-mark@
+sign ~newline~ := @section@
+
+sign ~newline~ := @plus-minus@
+
 bold ~newline~ := 'hello, bold'
 italic ~newline~ := 'hello, italic'
 blockquote ~newline~ := 'hello, blockquote'
