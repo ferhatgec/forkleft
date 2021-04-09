@@ -49,6 +49,8 @@ public:
             case ForkleftKeywords::Bold         :
             case ForkleftKeywords::Blockquote   :
             case ForkleftKeywords::Sign         :
+            case ForkleftKeywords::Label        :
+            case ForkleftKeywords::Text         :
             case ForkleftKeywords::Strikethrough:
             case ForkleftKeywords::Title        : {
                 if(is_newline) {

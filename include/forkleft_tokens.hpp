@@ -22,19 +22,21 @@ enum class ForkleftKeywords : const u8 {
         H5    ,
         H6    ,
 
-        Italic    ,
-        Bold      ,
-        Blockquote,
-        Sign      ,
-        Code      ,
+        Italic       ,
+        Bold         ,
+        Blockquote   ,
+        Sign         ,
+        Label        ,
+        Text         ,
+        Code         ,
         Strikethrough,
-        Link      ,
-        Image     ,
-        Title     ,
+        Link         ,
+        Image        ,
+        Title        ,
 
-        Newline   ,
-        Inline    ,
-        HTML      ,
+        Newline      ,
+        Inline       ,
+        HTML         ,
 
         Undefined
 };
@@ -51,6 +53,8 @@ std::vector<std::string> keywords = {
         "bold"         ,
         "blockquote"   ,
         "sign"         ,
+        "label"        ,
+        "text"         ,
         "code"         ,
         "strikethrough",
         "link"         ,
@@ -74,7 +78,11 @@ std::vector<std::string> html_keywords {
         "strong"    ,
 
         "blockquote",
-        "label"     ,
+
+        "label"     , // sign
+        "label"     , // label
+        "label"     , // text
+
         "code"      ,
         "s"         ,
         "a"         ,

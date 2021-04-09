@@ -26,6 +26,9 @@ sign ~newline~ := @section@
 
 sign ~newline~ := @plus-minus@
 
+text ~newline~ := 'hello, text (aka label)'
+label ~newline~ := 'hello, label (aka text)'
+
 bold ~newline~ := 'hello, bold'
 italic ~newline~ := 'hello, italic'
 blockquote ~newline~ := 'hello, blockquote'
